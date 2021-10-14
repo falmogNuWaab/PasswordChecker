@@ -138,6 +138,7 @@ namespace PasswordRegistration
                 if (uArray.Length > 12)
                 {
                     errorPrompt = errorPrompt + "\nUsername cannot contain more than 12 characters!";
+                    maxLength = false;
                 }
 
 
@@ -305,11 +306,11 @@ namespace PasswordRegistration
 
         public static bool BannedList(string testString, List<string> testArray)
         {
-            for(int i = 0; i < testArray.Count; i++)
+            for (int i = 0; i < testArray.Count; i++)
             {
                 string testVar = testArray[i].ToLower();
                 //Console.WriteLine($"List Element: {testVar}, \nUser Input: {testString}");
-                if(testString.ToLower().Contains(testVar.ToLower()) || testString.ToLower() == testVar.ToLower())
+                if (testString.ToLower().Contains(testVar.ToLower()) || testString.ToLower() == testVar.ToLower())
                 {
                     return false;
                 }
@@ -320,6 +321,6 @@ namespace PasswordRegistration
             }
             return true;
 
-
+        }
     }
 }
