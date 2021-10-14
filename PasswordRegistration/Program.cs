@@ -319,21 +319,7 @@ namespace PasswordRegistration
                 }
             }
             return true;
-            //List<string> noNoWords = testArray;
 
-            //foreach(string nono in testArray)
-            //{
-            //    if(testString.ToLower().Contains(nono) || nono == testString.ToLower())
-            //    {
-            //        return false;
-            //    }
-            //    else
-            //    {
-            //        continue;
-            //    }
-            //}
-            //return true;
-        }
 
     }
 }
