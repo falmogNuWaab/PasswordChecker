@@ -23,6 +23,15 @@ namespace PasswordRegistration
             uPass.Add("nSlckUn!f0rm");
             uPass.Add("iJustn3ed#");
 
+            //Array of banned usernames
+            List<string> noNoWords = new List<string>();
+            noNoWords.Add("nklebkfan");
+            noNoWords.Add("nickleback");
+            noNoWords.Add("fart");
+            noNoWords.Add("coldplay");
+            noNoWords.Add("bleep");
+            
+
             //Have the user pick the password before the username. It's a new best practice, get with the program.
 
             while (!isValid)
@@ -143,24 +152,19 @@ namespace PasswordRegistration
                     errorPrompt = errorPrompt + "\nUsername must contain at least 5 letters";
                 }
 
-                permittedName = BannedList(username);
+                permittedName = BannedList(username,noNoWords);
                 if (!permittedName)
                 {
                     errorPrompt = errorPrompt + "\nUsername contained a banned word, please try something else!";
                 }
-                
-                foreach(string name in uNames)
+
+                isItAvail = BannedList(username, uNames);
+                if (!isItAvail)
                 {
-                    if(name == username)
-                    {
-                        isItAvail = false;
-                        errorPrompt = errorPrompt + "\nUsername is not available";
-                    }
-                    else
-                    {
-                        isItAvail = true;
-                    }
+                    errorPrompt = errorPrompt + "\nUsername is not available, please try something else!";
                 }
+
+
                 if (minLength && maxLength && hasNums && enoughLetters && permittedName && isItAvail)
                 {
                     
@@ -180,6 +184,7 @@ namespace PasswordRegistration
 
         public static string GetUserInput(string prompt)
         {
+            //send the user a prompt and return the response
             Console.WriteLine(prompt);
             string response = Console.ReadLine();
 
@@ -188,6 +193,8 @@ namespace PasswordRegistration
 
         public static bool CheckUppers(string testString) 
         {
+            //user's username or password is sent to this through the testString parameter
+            //it will then be broken down into an array of characters then each character will be evaluated.
             char[] testChar = testString.ToCharArray();
             foreach (char acter in testChar)
             {
@@ -296,12 +303,13 @@ namespace PasswordRegistration
         }
 
 
-        public static bool BannedList(string testString)
+        public static bool BannedList(string testString, List<string> testArray)
         {
-            string[] noNoWords = { "nklebkfan", "coldplayrx", "fart", "toes" };
-            foreach(string nono in noNoWords)
+            for(int i = 0; i < testArray.Count; i++)
             {
-                if(testString.ToLower().Contains(nono) || nono == testString)
+                string testVar = testArray[i].ToLower();
+                //Console.WriteLine($"List Element: {testVar}, \nUser Input: {testString}");
+                if(testString.ToLower().Contains(testVar.ToLower()) || testString.ToLower() == testVar.ToLower())
                 {
                     return false;
                 }
@@ -311,6 +319,20 @@ namespace PasswordRegistration
                 }
             }
             return true;
+            //List<string> noNoWords = testArray;
+
+            //foreach(string nono in testArray)
+            //{
+            //    if(testString.ToLower().Contains(nono) || nono == testString.ToLower())
+            //    {
+            //        return false;
+            //    }
+            //    else
+            //    {
+            //        continue;
+            //    }
+            //}
+            //return true;
         }
 
     }
